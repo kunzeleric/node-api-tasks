@@ -16,3 +16,9 @@ Content-Type: application/json
   "completed_at": null,
   "updated_at": "2023-09-20T12:00:00Z"
 }
+
+###
+
+# @name route-delete-task
+
+DELETE http://localhost:3333/tasks/b0af79c4-d2bb-4772-bec8-b776353
