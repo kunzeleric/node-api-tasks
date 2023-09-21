@@ -10,11 +10,8 @@ POST http://localhost:3333/tasks
 Content-Type: application/json
 
 {
-  "title": "Task One",
-  "description": "Test Task",
-  "created_at": "2023-09-20T12:00:00Z",
-  "completed_at": null,
-  "updated_at": "2023-09-20T12:00:00Z"
+  "title": "Study Modus Operandis",
+  "description": "Estudar node"
 }
 
 ###
@@ -22,3 +19,10 @@ Content-Type: application/json
 # @name route-delete-task
 
 DELETE http://localhost:3333/tasks/b0af79c4-d2bb-4772-bec8-b776353
+
+
+###
+
+# @name route-get-tasks-with-search
+
+GET http://localhost:3333/tasks?search=task

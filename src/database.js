@@ -1,22 +1,24 @@
 import fs from "node:fs/promises";
 
+// sets database based on current location of file execution
 const databasePath = new URL("../db.json", import.meta.url);
 
 export class Database {
   #database = {};
 
   constructor() {
-    fs.readFile(databasePath, "utf-8")
+    fs.readFile(databasePath, "utf-8") // when the class is started, it reads the file
       .then((data) => {
         this.#database = JSON.parse(data);
       })
       .catch(() => {
-        this.#persist();
+        this.#persist(); // database is created empty if there is no file
       });
   }
 
   #persist() {
     fs.writeFile(databasePath, JSON.stringify(this.#database), (e) => {
+      // "saves" the file
       console.log(e);
     });
   }

@@ -11,10 +11,15 @@ export const routes = [
     handler: (req, res) => {
       const { search } = req.query;
 
-      const tasks = database.select("tasks", {
-        title: search,
-        description: search
-      });
+      const tasks = database.select(
+        "tasks",
+        search
+          ? {
+              title: search,
+              description: search,
+            }
+          : null
+      );
 
       return res.end(JSON.stringify(tasks));
     },
@@ -23,21 +28,24 @@ export const routes = [
     method: "POST",
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
-      const { title, description, completed_at, created_at, updated_at } =
-        req.body;
+      if (req.body) {
+        const { title, description } = req.body;
 
-      const task = {
-        id: randomUUID(),
-        title,
-        description,
-        created_at,
-        completed_at,
-        updated_at,
-      };
+        const task = {
+          id: randomUUID(),
+          title,
+          description,
+          created_at: new Date(),
+          completed_at: null,
+          updated_at: null,
+        };
 
-      database.insert("tasks", task);
+        database.insert("tasks", task);
 
-      return res.end(JSON.stringify(task));
+        return res.end(JSON.stringify(task));
+      } else {
+        return res.writeHead(404).end("No body found.");
+      }
     },
   },
   {
@@ -46,8 +54,8 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
 
-      database.delete('tasks', id);
-      
+      database.delete("tasks", id);
+
       return res.writeHead(204).end();
     },
   },
