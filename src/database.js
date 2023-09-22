@@ -55,6 +55,41 @@ export class Database {
     if (rowIndex > -1) {
       this.#database[table].splice(rowIndex, 1);
       this.#persist();
+      return true;
+    } else {
+      return null;
+    }
+  }
+
+  update(table, id, data) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      const currentTask = this.#database[table][rowIndex];
+
+      const newTask = { ...currentTask, updated_at: new Date(), ...data };
+
+      this.#database[table][rowIndex] = newTask;
+      this.#persist();
+      return true;
+    } else {
+      return null;
+    }
+  }
+
+  complete(table, id) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      const currentTask = this.#database[table][rowIndex];
+      if (currentTask.completed_at) {
+        res.status(400).send("Not possible to complete task, it's already complete.")
+        return false;
+      }
+      const newTask = { ...currentTask, completed_at: new Date() };
+      this.#database[table][rowIndex] = newTask;
+      this.#persist();
+      return true;
     } else {
       return null;
     }

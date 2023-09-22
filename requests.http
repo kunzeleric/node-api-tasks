@@ -18,7 +18,7 @@ Content-Type: application/json
 
 # @name route-delete-task
 
-DELETE http://localhost:3333/tasks/b0af79c4-d2bb-4772-bec8-b776353
+DELETE http://localhost:3333/tasks/ca49c454-7814-4d2d-bf09-00d5e0464acd
 
 
 ###
@@ -26,3 +26,15 @@ DELETE http://localhost:3333/tasks/b0af79c4-d2bb-4772-bec8-b776353
 # @name route-get-tasks-with-search
 
 GET http://localhost:3333/tasks?search=task
+
+###
+
+# @name route-update-task
+
+PUT http://localhost:3333/tasks/39780c9d-ff88-46ee-a524-b4ff67e8ff53
+Content-Type: application/json
+
+{
+  "title": "Change Modus Operandis",
+  "description": "Estudar node 2"
+}

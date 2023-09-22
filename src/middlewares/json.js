@@ -7,7 +7,6 @@ export const json = async (req, res) => {
   try {
     req.body = JSON.parse(Buffer.concat(buffers).toString());
   } catch (error) {
-    console.log('Error parsing JSON.')
     req.body = null;
   }
 
