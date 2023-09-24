@@ -86,12 +86,12 @@ export class Database {
         res.status(400).send("Not possible to complete task, it's already complete.")
         return false;
       }
-      const newTask = { ...currentTask, completed_at: new Date() };
+      const newTask = { ...currentTask, completed_at: new Date(), updated_at: new Date() };
       this.#database[table][rowIndex] = newTask;
       this.#persist();
       return true;
     } else {
-      return null;
+      return res.writeHead(404).send("Task not found!");
     }
   }
 }
